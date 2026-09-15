@@ -1,0 +1,8 @@
+task tracking system
+
+database- mango dp, postgreas DB (reserve RM or prisom, neon)
+batho or auth authentication. 
+
+user LOGIN:
+next js. 
+API end point or  
