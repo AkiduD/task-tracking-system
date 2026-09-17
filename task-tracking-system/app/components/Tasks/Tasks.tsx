@@ -4,6 +4,7 @@ import { useGlobalState } from "@/app/context/globalProvider";
 import React from "react";
 import styled from "styled-components";
 import CreareContent from "../models/CreareContent";
+import Modal from "../models/Modal";
 import TaskItem from "../TaskItem/TaskItem";
 import { plus } from "@/app/utils/icons";
 declare module "styled-components" {
@@ -24,6 +25,11 @@ declare module "styled-components" {
     colorGrey2: string;
     shadow7: string;
     colorDanger: string;
+    colorWhite: string;
+    borderRadiusMd: string;
+    colorGrey1:string;
+    colorGreyDark: string;
+    colorBg2: string;
   }
 }
 
@@ -33,12 +39,13 @@ interface Props {
 }
 
 function Tasks({ title, tasks }: Props) {
-  const { theme } = useGlobalState();
+  const { theme, isLoading, openModal, modal } = useGlobalState();
 
   return (
     <TaskStyled theme={theme}>
+      {modal && <Modal content={<CreareContent />} />}
       <h1>{title}</h1>
-      <div className="tasks grid">
+      {!isLoading ? <div className="tasks grid">
         {(Array.isArray(tasks) ? tasks : []).map((task) => (
           <TaskItem
             key={task.id}
@@ -49,14 +56,19 @@ function Tasks({ title, tasks }: Props) {
             id={task.id}
           />
         ))}
-        <button className="create-task">
+        <button className="create-task" onClick={openModal}>
           {plus}
           Add New Task
         </button>
-      </div>
+      </div> : <div >
+        </div>} 
     </TaskStyled>
   );
 }
+/*
+className="task-loader w-full h-full flex items-center justify-center ">
+        <span className="loader"></span
+*/ 
 
 const TaskStyled = styled.main`
 

@@ -4,6 +4,8 @@ import { useGlobalState } from '@/app/context/globalProvider';
 import styled from 'styled-components';
 import React from 'react';
 
+import { useRouter } from 'next/router';
+
 interface Props {
     icon?: React.ReactNode;
     name?: string;
@@ -15,6 +17,7 @@ interface Props {
     click?: () => void;
     type?: "submit" | "button" | "reset" | undefined;
     border?: string;
+    color?:string;
 }
 
 function Button({icon,
@@ -26,12 +29,18 @@ function Button({icon,
     fs,
     click,
     type,
-    border
+    border,
+    color
 }: Props) {
 
-    const {theme} =useGlobalState();
+  const {theme} =useGlobalState();
+  //const { signOut } = useClerk();
+
+  //const router = useRouter();
+
+
   return <ButtonStyled 
-  type={type ?? "button"}
+  type={type}
   onClick={click}
   style={{
     background: background,
@@ -40,9 +49,12 @@ function Button({icon,
     fontWeight: fw || "500",
     fontSize: fs,
     border: border || "none",
+    color: color || theme.colorGrey2,
     
   }}
   theme={theme}
+
+  
   >
 {icon && icon}
 {name}
@@ -52,6 +64,31 @@ function Button({icon,
   
 }
 
-const ButtonStyled = styled.button``;
+const ButtonStyled = styled.button`
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: ${(props => props.theme.colorGrey2)};
+  z-index: 5;
+  cursor: pointer;
+
+  transition: all 0.55s ease-in-out;
+
+
+
+  i{
+    margin-right: 1rem;
+    color: ${(props => props.theme.colorGrey3)};
+    font-size: 1rem;
+  }
+
+&:hover {
+  color: ${(props => props.theme.colorGrey0)} ;
+  i{
+    color:  ${(props => props.theme.colorGrey0)};
+  }
+}
+
+`;
 
 export default Button;

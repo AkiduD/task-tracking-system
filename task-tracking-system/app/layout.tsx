@@ -8,6 +8,7 @@ import Sidebar from "./components/Sidebar/sidebar";
 import GlobalStyleProvider from "./providers/GlobalStyleProvider";
 import ContextProvider from "./providers/ContextProvider";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import NextTopLoader from "nextjs-toploader";
 
 
 
@@ -49,6 +50,11 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           ></link>
         </head>
         <body className={nunito.className}>
+          <NextTopLoader 
+              height={2}
+              color="#27AE60"
+              easing="cubic-bazier(.53, .21, .0, .1)"
+          />
           <ContextProvider>
               <GlobalStyleProvider>
           {userId &&  <Sidebar />}

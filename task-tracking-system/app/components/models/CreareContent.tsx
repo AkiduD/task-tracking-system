@@ -1,8 +1,13 @@
 "use client";
 
+import { useGlobalState } from "@/app/context/globalProvider";
+import Button from "../Button/Button";
 import axios from "axios";
 import React, { ChangeEvent, useState } from "react";
 import toast from "react-hot-toast";
+import styled from "styled-components";
+import { plus } from "@/app/utils/icons";
+
 
 function CreareContent() {
   const [title, setTitle] = useState("");
@@ -11,6 +16,7 @@ function CreareContent() {
   const [completed, setCompleted] = useState(false);
   const [important, setImportant] = useState(false);
 
+  const { theme } = useGlobalState();
   const handleChange =
     (name: string) =>
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -58,7 +64,7 @@ function CreareContent() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <CreateContentStyled onSubmit={handleSubmit} theme={theme}>
       <h1>Create a Task </h1>
       <div className="input-control">
         <label htmlFor="title">Title</label>
@@ -114,13 +120,64 @@ function CreareContent() {
           onChange={handleChange("important")}
         />
       </div>
-      <div className="submit-btn">
-        <button type="submit">
-          <span>Submit</span>
-        </button>
+      <div className="submit-btn flex justify-end">
+        <Button type="submit" 
+        name="Create Task"
+        icon={plus}
+        padding={"0.8rem 2rem"}
+        borderRed={"0.8rem"}
+        color={theme.colorGray2}
+        fw={"500"}
+        fs={"1.2rem"} 
+        background={theme.colorGreenDark}    />
       </div>
-    </form>
+    </CreateContentStyled>
   );
 }
+
+const CreateContentStyled = styled.form`
+  > h1{
+    font-size: clamp(1.5rem, 5vw, 1.6rem);
+    font-weight: 600;
+  }
+  
+  color: ${(props) => props.theme.colorGrey1};
+
+  .input-control {
+    position: relative;
+    margin: 1.6rem 0;
+    font-weight: 500;
+
+  }
+   label {
+    margin-bottom: 1rem;
+    display: inline-block;
+    font-size: clamp(1rem, 5vw, 1.2rem);
+
+    span{
+      color: ${(props) => props.theme.colorGrey3}
+    }
+  }
+
+input:not([type="checkbox"]),
+textarea {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  resize: none;
+
+  background-color: ${(props) => props.theme.colorGrey5};
+  color: ${(props) => props.theme.colorGrey1};
+  border: 1px solid ${(props) => props.theme.borderColor2};
+  border-radius: 0.5rem;
+  outline: none;
+  
+
+  &:focus {
+    border-color: ${(props) => props.theme.colorPrimaryGreen};
+  }
+}
+
+`;
 
 export default CreareContent;
