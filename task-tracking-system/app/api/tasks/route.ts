@@ -68,30 +68,59 @@ export async function GET(req: Request) {
 
 export async function PUT(req: Request) {
   try {
-     const { userId } = await auth();
-  const { isCompleted, id } = await req.json();
+    const { userId } = await auth();
 
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-  if (!userId) {
-    return NextResponse.json({
-      error: "Unauthorized"},
-    {status: 401    })
-  };
-
-  const task = await prisma.task.update({
-    where: {
+    const {
       id,
-    },
-    data: {
+      title,
+      description,
+      date,
+      completed,
+      important,
       isCompleted,
-    },
-  });
+    } = await req.json();
 
-  return NextResponse.json(task);
+    if (!id) {
+      return NextResponse.json({ error: "Task id is required" }, { status: 400 });
+    }
+
+    const existingTask = await prisma.task.findFirst({
+      where: { id, userId },
+    });
+
+    if (!existingTask) {
+      return NextResponse.json({ error: "Task not found" }, { status: 404 });
+    }
+
+    const data: {
+      title?: string;
+      description?: string;
+      date?: string;
+      isCompleted?: boolean;
+      isImportant?: boolean;
+    } = {};
+
+    if (title !== undefined) data.title = title;
+    if (description !== undefined) data.description = description;
+    if (date !== undefined) data.date = date;
+    if (typeof completed === "boolean") data.isCompleted = completed;
+    else if (typeof isCompleted === "boolean") data.isCompleted = isCompleted;
+    if (typeof important === "boolean") data.isImportant = important;
+
+    const task = await prisma.task.update({
+      where: { id },
+      data,
+    });
+
+    return NextResponse.json(task);
 
   } catch (error) {
     console.log("ERROR UPDATING TASK: ", error);
-    return NextResponse.json({ error: "Error deleting task", status: 500 });
+    return NextResponse.json({ error: "Error updating task" }, { status: 500 });
   }
 }
 

@@ -30,6 +30,8 @@ declare module "styled-components" {
     colorGrey1:string;
     colorGreyDark: string;
     colorBg2: string;
+    colorGrey6: string;
+    colorPrimary: string;
   }
 }
 
@@ -39,11 +41,11 @@ interface Props {
 }
 
 function Tasks({ title, tasks }: Props) {
-  const { theme, isLoading, openModal, modal } = useGlobalState();
+  const { theme, isLoading, openModal, modal, editingTask } = useGlobalState();
 
   return (
     <TaskStyled theme={theme}>
-      {modal && <Modal content={<CreareContent />} />}
+      {modal && <Modal content={<CreareContent task={editingTask} />} />}
       <h1>{title}</h1>
       {!isLoading ? <div className="tasks grid">
         {(Array.isArray(tasks) ? tasks : []).map((task) => (
@@ -53,6 +55,7 @@ function Tasks({ title, tasks }: Props) {
             description={task.description}
             date={task.date}
             isCompleted={task.isCompleted}
+            isImportant={task.isImportant}
             id={task.id}
           />
         ))}

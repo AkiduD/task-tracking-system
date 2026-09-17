@@ -56,7 +56,7 @@ const ModalStyled = styled.div`
   position: relative;
   z-index: 1001;
 
-  width: min(90vw, 630px);
+  width: min(90vw, 520px);
   padding: 1.5rem;
   overflow: hidden;
 
