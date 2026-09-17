@@ -1,8 +1,5 @@
-export const bars = <i className="fa-solid fa-bars"></i>;
+
 export const add = <i className="fa-solid fa-plus"></i>;
-export const moon = <i className="fa-solid fa-moon"></i>;
-export const sun = <i className="fa-solid fa-sun"></i>;
-export const dashboard = <i className="fa-solid fa-gauge"></i>;
 export const home = <i className="fa-solid fa-house"></i>;
 export const list = <i className="fa-solid fa-list"></i>;
 export const check = <i className="fa-solid fa-check"></i>;
