@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 /.pnp
@@ -30,8 +28,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# environment files
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -40,24 +39,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Environment files containing secrets
-.env
-.env.*
-!.env.example
 
-# Dependencies
-node_modules/
-
-# Generated output
-.next/
-out/
-dist/
-build/
-coverage/
-
-# Logs
-*.log
-
-# Operating system files
-.DS_Store
-Thumbs.db
+/app/generated/prisma

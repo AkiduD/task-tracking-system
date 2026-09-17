@@ -61,7 +61,7 @@ const themes = [
     colorGreenDark: "#27AE60",
     colorGreenLight: "#dbe1e8",
     activeNavLink: "rgba(249, 249, 249, 0.08)",
-    activeNavLink: "rgba(249, 249, 249, 0.03)",
+    activeNavLinkHover: "rgba(249, 249, 249, 0.03)",
     colorPrimary: "#7263F3",
     colorPrimary2: "#705DF2",
     colorGrey0: "#f8f8f8",

@@ -6,15 +6,17 @@ import styled from "styled-components";
 import { useGlobalState } from "@/app/context/globalProvider";
 import menu from "@/app/utils/menu";
 import { usePathname, useRouter } from "next/navigation";
+import Button from "../Button/Button";
+import { logout } from "@/app/utils/icons";
 
 declare module "styled-components" {
   export interface DefaultTheme {
     sidebarWidth: string;
-    background: string;
+    colorbg: string;
     borderColor2: string;
     colorGrey3: string;
     colorGrey0: string;
-    colorBg3: string;
+    colorbg3: string;
     activeNavLinkHover: string;
     colorGreenDark: string;
     colorIcons: string;
@@ -70,8 +72,17 @@ function Sidebar() {
           );
         })}
       </ul>
-
-      <button></button>
+      <div className="sign-out relative">
+        <Button
+          name={"Sign Out"}
+          type={"button"}
+          padding={"0.4rem 0.8rem"}
+          borderRed={"0.8rem"}
+          fw={"500"}
+          fs={"1rem"}
+          icon={logout}
+        />
+      </div>
     </SidebarStyled>
   );
 }
@@ -79,7 +90,7 @@ function Sidebar() {
 const SidebarStyled = styled.nav`
 position: relative;
 width: ${(props) => props.theme.sidebarWidth};
-background-color: ${(props) => props.theme.background};
+background-color: ${(props) => props.theme.colorbg};
 border: 2px solid ${(props) => props.theme.borderColor2};
 border-radius: 1rem;
 
@@ -106,7 +117,7 @@ color: ${(props) => props.theme.colorGrey3};
   position: absolute;
   inset: 0;
   backdrop-filter: blur(10px);
-  background: ${(props) => props.theme.colorBg3};
+  background: ${(props) => props.theme.colorbg3};
   border: 2px solid ${(props) => props.theme.borderColor2};
   border-radius: 1rem;
   opacity: 0.2;
