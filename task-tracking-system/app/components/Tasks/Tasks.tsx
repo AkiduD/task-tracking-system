@@ -59,7 +59,7 @@ function Tasks({ title, tasks }: Props) {
             id={task.id}
           />
         ))}
-        <button className="create-task" onClick={openModal}>
+        <button className="create-task" onClick={() => openModal()}>
           {plus}
           Add New Task
         </button>
